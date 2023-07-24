@@ -1,27 +1,17 @@
-import { useState } from "react"
-import { Login } from "pages"
-import { Button } from "components/Button"
+import { Dashboard, Error404, Login } from "pages"
+import { AppProvider } from "providers"
+import { Route, Routes } from "react-router-dom"
 
 export const App = () => {
-  const [count, setCount] = useState(0)
-
   return (
     <>
-      <Login />
-      <div>
-        <a href="https://vitejs.dev" target="_blank"></a>
-        <a href="https://react.dev" target="_blank"></a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>count is {count}</button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-
-      <Button />
-      <p className="read-the-docs">Click on the Vite and React logos to learn more</p>
+      <AppProvider>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/" element={<Dashboard />} />
+          <Route path="*" element={<Error404 />} />
+        </Routes>
+      </AppProvider>
     </>
   )
 }
