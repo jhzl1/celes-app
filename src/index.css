@@ -6,7 +6,8 @@ body {
   @apply bg-neutral-200;
 }
 
-h1 {
+h1,
+h2 {
   @apply text-primary;
 }
 

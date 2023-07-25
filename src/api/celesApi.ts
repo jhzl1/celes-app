@@ -7,7 +7,7 @@ export const celesApi = axios.create({
 })
 
 celesApi.interceptors.request.use((config) => {
-  config.headers["X-Shopify-Acess-Token"] = VITE_SHOPIFY_ACCESS_TOKEN
+  config.headers["X-Shopify-Access-Token"] = VITE_SHOPIFY_ACCESS_TOKEN
 
   return config
 })
