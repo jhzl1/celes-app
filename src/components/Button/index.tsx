@@ -36,18 +36,25 @@ export const Button = ({
       onClick={_onClick}
       {...rest}
     >
-      {isLoading ? (
-        <div className="w-full h-full flex items-center justify-center">
-          <SpinIcon
-            className={clsx("animate-spin", {
-              "w-4 h-4": size === "sm",
-              "w-5 h-5": size === "md",
-            })}
-          />
-        </div>
-      ) : (
-        children
-      )}
+      <span
+        className={clsx("block w-full text-center", {
+          "min-h-[20px] leading-5": size === "sm",
+          "min-h-[24px] leading-6": size === "md",
+        })}
+      >
+        {isLoading ? (
+          <div className="w-full h-full flex items-center justify-center">
+            <SpinIcon
+              className={clsx("animate-spin", {
+                "w-4 h-4": size === "sm",
+                "w-5 h-5": size === "md",
+              })}
+            />
+          </div>
+        ) : (
+          children
+        )}
+      </span>
     </button>
   )
 }
