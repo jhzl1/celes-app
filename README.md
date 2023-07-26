@@ -2,8 +2,6 @@
 
 This is the completed test for the Frontend Developer position at Celes. Below are the instructions to run the project:
 
-Currently, two official plugins are available:
-
 - Create a .env file with the following variables:
 
 ```
