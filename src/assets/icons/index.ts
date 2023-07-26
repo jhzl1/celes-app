@@ -1,3 +1,4 @@
+export * from "./BackIcon"
 export * from "./MenuIcon"
 export * from "./SpinIcon"
 export * from "./TagIcon"

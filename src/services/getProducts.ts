@@ -12,7 +12,7 @@ export const getProducts = async ({ page_info, limit, ids, title }: Params) => {
   const { data, headers } = await shopifyCelesApi.get<ProductsResponse>("/products.json", {
     params: {
       limit,
-      ...(!ids && !title && { page_info }),
+      ...(!ids && !title && page_info && { page_info }),
       ...(ids && { ids }),
       ...(title && { title }),
     },
