@@ -2,14 +2,15 @@ import { createColumnHelper } from "@tanstack/react-table"
 import { Button } from "components/Button"
 import { Table } from "components/Table"
 import { ParsedLink } from "helpers"
-import { usePagination } from "hooks"
+import { useFilters, usePagination } from "hooks"
 import { Product } from "interfaces"
 import { useQuery } from "react-query"
 import { useNavigate } from "react-router-dom"
 import { getProducts } from "services"
 
 export const Products = () => {
-  const { pageInfos, changePageInfos, handleNextPage, activePage } = usePagination()
+  const { pageInfos, changePageInfos, handleChangePage, activePage } = usePagination()
+  const { limitPerPage, handleLimitPerPageChange } = useFilters()
 
   const navigate = useNavigate()
 
@@ -18,8 +19,8 @@ export const Products = () => {
     error,
     isLoading,
   } = useQuery({
-    queryKey: ["getProducts", activePage],
-    queryFn: () => getProducts({ page_info: activePage }),
+    queryKey: ["getProducts", activePage, limitPerPage],
+    queryFn: () => getProducts({ page_info: activePage, limit: limitPerPage }),
     refetchOnWindowFocus: false,
     onSuccess({ pageInfos }) {
       changePageInfos(pageInfos as ParsedLink)
@@ -87,9 +88,11 @@ export const Products = () => {
         columns={columns}
         data={productsResp?.products || []}
         isLoading={isLoading}
-        onChangePage={handleNextPage}
+        onChangePage={handleChangePage}
         canGoNext={!!pageInfos.next}
         canGoPrev={!!pageInfos.previous}
+        limitPerPage={limitPerPage}
+        onLimitPerPageChange={handleLimitPerPageChange}
       />
     </div>
   )

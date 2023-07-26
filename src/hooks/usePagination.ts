@@ -20,5 +20,5 @@ export const usePagination = () => {
     navigate({ pathname, search: `?page_info=${pageInfos[direcction]}` })
   }
 
-  return { pageInfos, changePageInfos, handleNextPage: handleChangePage, activePage }
+  return { pageInfos, changePageInfos, handleChangePage, activePage }
 }

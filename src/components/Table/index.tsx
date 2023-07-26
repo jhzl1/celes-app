@@ -14,9 +14,20 @@ interface Props {
   onChangePage: (direcction: keyof ParsedLink) => void
   canGoPrev: boolean
   canGoNext: boolean
+  limitPerPage: number
+  onLimitPerPageChange: (newLimit: number) => void
 }
 
-export const Table = ({ columns, data, isLoading, onChangePage, canGoNext, canGoPrev }: Props) => {
+export const Table = ({
+  columns,
+  data,
+  isLoading,
+  onChangePage,
+  canGoNext,
+  canGoPrev,
+  limitPerPage,
+  onLimitPerPageChange,
+}: Props) => {
   const table = useReactTable({
     data,
     columns,
@@ -57,6 +68,20 @@ export const Table = ({ columns, data, isLoading, onChangePage, canGoNext, canGo
             <Button onClick={() => onChangePage("next")} disabled={!canGoNext}>
               {"Next >"}
             </Button>
+
+            <select
+              value={limitPerPage}
+              onChange={(e) => {
+                onLimitPerPageChange(Number(e.target.value))
+              }}
+              className="p-2 rounded-md"
+            >
+              {[5, 10, 15, 20].map((pageSize) => (
+                <option key={pageSize} value={pageSize}>
+                  Show {pageSize}
+                </option>
+              ))}
+            </select>
           </div>
         </>
       )}

@@ -3,12 +3,13 @@ import { getPageInfoQueryParam, parseHeaderLink } from "helpers"
 import { ProductResponse } from "interfaces"
 interface Params {
   page_info?: string
+  limit: number
 }
 
-export const getProducts = async ({ page_info }: Params) => {
+export const getProducts = async ({ page_info, limit }: Params) => {
   const { data, headers } = await shopifyCelesApi.get<ProductResponse>("/products.json", {
     params: {
-      limit: 10,
+      limit,
       page_info,
     },
   })
