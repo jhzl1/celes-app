@@ -25,7 +25,7 @@ export const Button = ({
 
   return (
     <button
-      className={clsx(className, "rounded-md transition-all duration-200", {
+      className={clsx(className, "rounded-md transition-all duration-200 disabled:bg-neutral-500", {
         "bg-primary text-white hover:bg-[#393F4C]": variant === "normal",
         "bg-white text-primary border border-primary hover:bg-neutral-100": variant === "outline",
         "px-2 py-1 text-sm": size === "sm",

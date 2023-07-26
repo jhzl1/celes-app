@@ -1,12 +1,32 @@
-import { celesApi } from "api/celesApi"
+import { shopifyCelesApi } from "api/shopifyCelesApi"
+import { getPageInfoQueryParam, parseHeaderLink } from "helpers"
 import { ProductResponse } from "interfaces"
+interface Params {
+  page_info?: string
+}
 
-export const getProducts = async () => {
-  const { data } = await celesApi.get<ProductResponse>("/products.json", {
+export const getProducts = async ({ page_info }: Params) => {
+  const { data, headers } = await shopifyCelesApi.get<ProductResponse>("/products.json", {
     params: {
-      limit: 3,
+      limit: 10,
+      page_info,
     },
   })
 
-  return data.products
+  const { products } = data
+
+  const linkHeader = headers["link"]
+
+  const parsedLinks = parseHeaderLink(linkHeader)
+
+  const next = getPageInfoQueryParam(parsedLinks.next || "")
+  const previous = getPageInfoQueryParam(parsedLinks.previous || "")
+
+  return {
+    products,
+    pageInfos: {
+      next,
+      previous,
+    },
+  }
 }
