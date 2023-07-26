@@ -1,9 +1,9 @@
 import axios from "axios"
 
-const { VITE_URL_API_BASE, VITE_SHOPIFY_ACCESS_TOKEN } = import.meta.env
+const { VITE_SHOPIFY_VERSION, VITE_SHOPIFY_ACCESS_TOKEN } = import.meta.env
 
 export const celesApi = axios.create({
-  baseURL: VITE_URL_API_BASE,
+  baseURL: VITE_SHOPIFY_VERSION,
 })
 
 celesApi.interceptors.request.use((config) => {
