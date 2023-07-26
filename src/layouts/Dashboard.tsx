@@ -11,7 +11,7 @@ export const DashboardLayout = () => {
     <div className="flex relative">
       <div
         className={clsx(
-          "bg-white h-screen p-8 w-80 flex flex-col items-center space-y-7 transition-all duration-200 absolute",
+          "bg-white h-screen p-8 w-72 flex flex-col items-center space-y-7 transition-all duration-200 absolute",
           {
             "-left-96": !showNavbar,
             "left-0": showNavbar,
@@ -35,7 +35,7 @@ export const DashboardLayout = () => {
       </div>
       <div
         className={clsx("w-full overflow-y-scroll h-screen transition-all duration-200", {
-          "ml-80": showNavbar,
+          "ml-72": showNavbar,
           "ml-0": !showNavbar,
         })}
       >

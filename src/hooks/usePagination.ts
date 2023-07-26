@@ -14,10 +14,10 @@ export const usePagination = () => {
 
   const changePageInfos = (pageInfos: ParsedLink) => setPageInfos(pageInfos)
 
-  const handleChangePage = (direcction: keyof typeof pageInfos) => {
-    if (!pageInfos[direcction]) return
+  const handleChangePage = (direction: keyof typeof pageInfos) => {
+    if (!pageInfos[direction]) return
 
-    navigate({ pathname, search: `?page_info=${pageInfos[direcction]}` })
+    navigate({ pathname, search: `?page_info=${pageInfos[direction]}` })
   }
 
   return { pageInfos, changePageInfos, handleChangePage, activePage }

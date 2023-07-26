@@ -41,7 +41,7 @@ export const Products = () => {
   const columns = [
     columnHelper.accessor("image", {
       header: "",
-      size: 40,
+      size: 70,
       cell: ({ getValue }) =>
         getValue()?.src ? (
           <img src={getValue()?.src} className="w-16 h-16 rounded-md" />

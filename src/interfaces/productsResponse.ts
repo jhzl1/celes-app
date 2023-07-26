@@ -1,5 +1,9 @@
-export interface ProductResponse {
+export interface ProductsResponse {
   products: Product[]
+}
+
+export interface ProductResponse {
+  product: Product
 }
 
 export interface Product {
