@@ -1,5 +1,4 @@
 import { useReactTable, getCoreRowModel, ColumnDef } from "@tanstack/react-table"
-import { useEffect, useState } from "react"
 import { TableHeader } from "./TableHeader"
 import { TableBody } from "./TableBody"
 import { Product } from "interfaces"
@@ -9,7 +8,7 @@ import { Button } from "components/Button"
 
 interface Props {
   columns: ColumnDef<Product, any>[]
-  data: Product[]
+  data: Product[] | undefined
   isLoading: boolean
   onChangePage: (direcction: keyof ParsedLink) => void
   canGoPrev: boolean
@@ -20,7 +19,7 @@ interface Props {
 
 export const Table = ({
   columns,
-  data,
+  data = [],
   isLoading,
   onChangePage,
   canGoNext,
@@ -34,26 +33,20 @@ export const Table = ({
     getCoreRowModel: getCoreRowModel(),
   })
 
+  if (isLoading)
+    return (
+      <div className="bg-white rounded-md p-3 flex justify-center w-full">
+        <div className="flex flex-col space-y-3 justify-center items-center p-3">
+          <SpinIcon className="animate-spin" />
+          <span>Loading...</span>
+        </div>
+      </div>
+    )
+
   return (
     <>
-      {isLoading ? (
-        <div className=" bg-white rounded-md p-3 flex justify-center w-full">
-          <div className="flex flex-col space-y-3 justify-center items-center p-3">
-            <SpinIcon className="animate-spin" />
-            <span>Loading...</span>
-          </div>
-        </div>
-      ) : (
+      {!!data && data.length > 0 ? (
         <>
-          <div>
-            {/* <DebouncedInput
-              value={globalFilter ?? ""}
-              onChange={(value) => setGlobalFilter(String(value))}
-              className="p-2 font-lg shadow border border-block"
-              placeholder="Search all columns..."
-            /> */}
-          </div>
-          <div className="h-2" />
           <div className="rounded-md border shadow overflow-hidden">
             <table className="table-fixed w-full">
               <TableHeader {...table} />
@@ -84,35 +77,11 @@ export const Table = ({
             </select>
           </div>
         </>
+      ) : (
+        <div className="w-full bg-white p-3 rounded-md">
+          <p className="text-center">No data</p>
+        </div>
       )}
     </>
   )
-}
-
-// A debounced input react component
-function DebouncedInput({
-  value: initialValue,
-  onChange,
-  debounce = 500,
-  ...props
-}: {
-  value: string | number
-  onChange: (value: string | number) => void
-  debounce?: number
-} & Omit<React.InputHTMLAttributes<HTMLInputElement>, "onChange">) {
-  const [value, setValue] = useState(initialValue)
-
-  useEffect(() => {
-    setValue(initialValue)
-  }, [initialValue])
-
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      onChange(value)
-    }, debounce)
-
-    return () => clearTimeout(timeout)
-  }, [value])
-
-  return <input {...props} value={value} onChange={(e) => setValue(e.target.value)} />
 }

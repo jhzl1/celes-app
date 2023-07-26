@@ -4,6 +4,8 @@ export interface ParsedLink {
 }
 
 export const parseHeaderLink = (headerLink: string) => {
+  if (!headerLink) return {}
+
   const links = headerLink.split(",")
 
   const result: ParsedLink = {}

@@ -1,5 +1,6 @@
 import { createColumnHelper } from "@tanstack/react-table"
 import { Button } from "components/Button"
+import { InputFilter } from "components/InputFilter"
 import { Table } from "components/Table"
 import { ParsedLink } from "helpers"
 import { useFilters, usePagination } from "hooks"
@@ -10,7 +11,14 @@ import { getProducts } from "services"
 
 export const Products = () => {
   const { pageInfos, changePageInfos, handleChangePage, activePage } = usePagination()
-  const { limitPerPage, handleLimitPerPageChange } = useFilters()
+  const {
+    limitPerPage,
+    handleLimitPerPageChange,
+    idFilter,
+    nameFilter,
+    handleNameFilterChange,
+    hanldeIdFilterChange,
+  } = useFilters()
 
   const navigate = useNavigate()
 
@@ -19,8 +27,9 @@ export const Products = () => {
     error,
     isLoading,
   } = useQuery({
-    queryKey: ["getProducts", activePage, limitPerPage],
-    queryFn: () => getProducts({ page_info: activePage, limit: limitPerPage }),
+    queryKey: ["getProducts", activePage, limitPerPage, idFilter, nameFilter],
+    queryFn: () =>
+      getProducts({ page_info: activePage, limit: limitPerPage, ids: idFilter, title: nameFilter }),
     refetchOnWindowFocus: false,
     onSuccess({ pageInfos }) {
       changePageInfos(pageInfos as ParsedLink)
@@ -59,6 +68,7 @@ export const Products = () => {
         return <p className="text-center">{quantity}</p>
       },
     }),
+
     columnHelper.display({
       header: "Actions",
       size: 100,
@@ -83,6 +93,20 @@ export const Products = () => {
           <span>An error occurred while fetching the data. Try it again</span>
         </div>
       )}
+
+      <div className="flex space-x-5">
+        <InputFilter
+          value={idFilter}
+          pattern="[0-9]*"
+          onChange={(value) => hanldeIdFilterChange(String(value))}
+          placeholder="Search by ID"
+        />
+        <InputFilter
+          value={nameFilter}
+          onChange={(value) => handleNameFilterChange(String(value))}
+          placeholder="Search by Name"
+        />
+      </div>
 
       <Table
         columns={columns}
