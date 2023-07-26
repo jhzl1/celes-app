@@ -1,14 +1,13 @@
 import { useReactTable, getCoreRowModel, ColumnDef } from "@tanstack/react-table"
 import { TableHeader } from "./TableHeader"
 import { TableBody } from "./TableBody"
-import { Product } from "interfaces"
 import { SpinIcon } from "assets/icons"
 import { ParsedLink } from "helpers"
 import { Button } from "components/Button"
 
 interface Props {
-  columns: ColumnDef<Product, any>[]
-  data: Product[] | undefined
+  columns: ColumnDef<any, any>[]
+  data: any[] | undefined
   isLoading: boolean
   onChangePage: (direcction: keyof ParsedLink) => void
   canGoPrev: boolean
@@ -36,7 +35,10 @@ export const Table = ({
   if (isLoading)
     return (
       <div className="bg-white rounded-md p-3 flex justify-center w-full">
-        <div className="flex flex-col space-y-3 justify-center items-center p-3">
+        <div
+          className="flex flex-col space-y-3 justify-center items-center p-3"
+          data-testid="loading-indicator"
+        >
           <SpinIcon className="animate-spin" />
           <span>Loading...</span>
         </div>
@@ -48,17 +50,25 @@ export const Table = ({
       {!!data && data.length > 0 ? (
         <>
           <div className="rounded-md border shadow overflow-hidden">
-            <table className="table-fixed w-full">
+            <table className="table-fixed w-full" data-testid="table">
               <TableHeader {...table} />
 
               <TableBody {...table} />
             </table>
           </div>
           <div className="flex items-center gap-2 justify-center">
-            <Button onClick={() => onChangePage("previous")} disabled={!canGoPrev}>
+            <Button
+              onClick={() => onChangePage("previous")}
+              disabled={!canGoPrev}
+              data-testid="prev-button"
+            >
               {"< Previous"}
             </Button>
-            <Button onClick={() => onChangePage("next")} disabled={!canGoNext}>
+            <Button
+              onClick={() => onChangePage("next")}
+              disabled={!canGoNext}
+              data-testid="next-button"
+            >
               {"Next >"}
             </Button>
 

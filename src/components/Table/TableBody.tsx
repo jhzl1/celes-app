@@ -1,7 +1,6 @@
 import { Table, flexRender } from "@tanstack/react-table"
-import { Product } from "interfaces"
 
-type Props = Table<Product>
+type Props = Table<any>
 
 export const TableBody = ({ getRowModel }: Props) => {
   return (
