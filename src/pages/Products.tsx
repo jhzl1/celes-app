@@ -8,7 +8,7 @@ import { useQuery } from "react-query"
 import { useNavigate } from "react-router-dom"
 import { getProducts } from "services"
 
-export const Dashboard = () => {
+export const Products = () => {
   const { pageInfos, changePageInfos, handleNextPage, activePage } = usePagination()
 
   const navigate = useNavigate()
@@ -62,7 +62,11 @@ export const Dashboard = () => {
       header: "Actions",
       size: 100,
       cell: ({ row }) => (
-        <Button variant="outline" onClick={() => navigate(`/productDetail/${row.original.id}`)}>
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => navigate(`/productDetail/${row.original.id}`)}
+        >
           More details
         </Button>
       ),
