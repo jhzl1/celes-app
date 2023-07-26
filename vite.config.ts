@@ -12,6 +12,12 @@ export default defineConfig(({ mode }) => {
       },
     },
     plugins: [react(), tsconfigPaths()],
+    test: {
+      environment: "jsdom",
+      setupFiles: ["./src/tests/setup.ts"],
+      testMatch: ["./src/tests/**/*.test.tsx"],
+      globals: true,
+    },
     server: {
       proxy: {
         [VITE_SHOPIFY_VERSION]: {
