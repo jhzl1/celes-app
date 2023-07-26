@@ -3,7 +3,7 @@ export interface ProductsResponse {
 }
 
 export interface ProductResponse {
-  product: Product
+  product: Pick<Product, "id" | "title" | "body_html" | "vendor" | "updated_at" | "image">
 }
 
 export interface Product {

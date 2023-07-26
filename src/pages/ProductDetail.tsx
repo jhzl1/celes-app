@@ -27,6 +27,7 @@ export const ProductDetail = () => {
         <button
           className="bg-neutral-300 rounded-md p-2 hover:bg-neutral-400 text-primary transition-all duration-200"
           onClick={() => navigate(-1)}
+          data-testid="back-btn"
         >
           <BackIcon />
         </button>
