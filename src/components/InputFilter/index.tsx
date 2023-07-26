@@ -1,3 +1,4 @@
+import { XIcon } from "assets/icons"
 import clsx from "clsx"
 import { useEffect, useState } from "react"
 
@@ -29,14 +30,21 @@ export const InputFilter = ({
   }, [value])
 
   return (
-    <input
-      {...props}
-      value={value}
-      className={clsx(className, "p-2 rounded-md border outline-none")}
-      onChange={({ target }) => {
-        if (!target.validity.valid) return
-        setValue(target.value)
-      }}
-    />
+    <div className={clsx(className, "p-2 rounded-md border bg-white flex items-center")}>
+      <input
+        {...props}
+        value={value}
+        className="outline-none mr-3"
+        onChange={({ target }) => {
+          if (!target.validity.valid) return
+          setValue(target.value)
+        }}
+      />
+      {value && (
+        <button className="bg-neutral-300 rounded-full w-5 h-5" onClick={() => setValue("")}>
+          <XIcon className="m-auto" />
+        </button>
+      )}
+    </div>
   )
 }
